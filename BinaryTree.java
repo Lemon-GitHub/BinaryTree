@@ -1,5 +1,8 @@
 package BinaryTree;
 
+import java.util.List;
+import java.util.ArrayList;
+
 class Node {
     public char val;
     public Node left;
@@ -7,6 +10,13 @@ class Node {
 
     public Node(char val) {
         this.val = val;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "val=" + val +
+                '}';
     }
 }
 
@@ -81,12 +91,27 @@ public class BinaryTree {
         return getLeafSize(root.left) + getLeafSize(root.right);
     }
 
+    public static Node find(Node root, char toFind){
+        if(root == null){
+            return null;
+        }
+        if(root.val == toFind){
+            return root;
+        }
+        Node ret = find(root.left, toFind);
+        if(ret != null){
+            return ret;
+        }
+        return find(root.right, toFind);
+    }
+
     public static void main(String[] args) {
         root = build();
         //prevOrder(root);
         //inOrder(root);
         //postOrder(root);
         //System.out.print(size(root));
-        System.out.print(getLeafSize(root));
+        //System.out.print(getLeafSize(root));
+        System.out.println(find(root, 'E'));
     }
 }
